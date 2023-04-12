@@ -1,0 +1,117 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+#define MAXSIZE 100 
+
+typedef struct LinearQueue 
+{
+  int front, rear;
+  int queue[MAXSIZE];
+} LinearQueue;
+
+void initQueue(LinearQueue *q) 
+{
+  q->front = -1;
+  q->rear = -1;
+}
+
+bool isEmpty(LinearQueue *q) 
+{
+  return (q->front == -1 && q->rear == -1);
+}
+
+bool isFull(LinearQueue *q) 
+{
+  return (q->rear == MAXSIZE - 1);
+}
+
+void enqueue(LinearQueue *q, int data) 
+{
+  if (isFull(q)) 
+  {
+    printf("Queue is full. Cannot insert element.\n");
+    return;
+  }
+  else if (isEmpty(q)) 
+  {
+    q->front = 0;
+    q->rear = 0;
+  }
+  else 
+  {
+    q->rear++;
+  }
+  q->queue[q->rear] = data;
+  printf("Element inserted successfully.\n");
+}
+
+void dequeue(LinearQueue *q) 
+{
+  if (isEmpty(q)) 
+  {
+    printf("Queue is empty. Cannot delete element.\n");
+    return;
+  }
+  else if (q->front == q->rear) 
+  {
+    q->front = -1;
+    q->rear = -1;
+  }
+  else 
+  {
+    q->front++;
+  }
+  printf("Element deleted successfully.\n");
+}
+
+void display(LinearQueue *q) 
+{
+  if (isEmpty(q)) 
+  {
+    printf("Queue is empty.\n");
+    return;
+  }
+  printf("Elements in queue are: ");
+  for (int i = q->front; i <= q->rear; i++) 
+  {
+    printf("%d ", q->queue[i]);
+  }
+  printf("\n");
+}
+
+int main() 
+{
+  LinearQueue q;
+  initQueue(&q);
+  int choice, data;
+  do 
+  {
+    printf("1. Enqueue\n");
+    printf("2. Dequeue\n");
+    printf("3. Display\n");
+    printf("4. Exit\n");
+    printf("Enter your choice: ");
+    scanf("%d", &choice);
+    switch (choice) 
+    {
+      case 1:
+      printf("Enter the element to be inserted: ");
+      scanf("%d", &data);
+      enqueue(&q, data);
+      break;
+      case 2:
+        dequeue(&q);
+        break;
+      case 3:
+        display(&q);
+        break;
+      case 4:
+        printf("Exiting program...\n");
+        break;
+      default:
+        printf("Invalid choice. Please try again.\n");
+    }
+  } while (choice != 4);
+
+  return 0;
+}
