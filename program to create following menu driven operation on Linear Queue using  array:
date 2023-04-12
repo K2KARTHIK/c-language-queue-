@@ -1,0 +1,97 @@
+#include <stdio.h>
+#include <stdlib.h>
+int f=-1;
+int r=-1;
+void enqueue(int q[],int n,int mq)
+{
+    int e;
+    if (r==mq-1)
+    printf("overflow\n");
+    else
+    {
+        if (r==-1)
+        {
+            f=0;
+            r=0;
+            printf("enter the element u want to be added : ");
+            scanf("%d", &e);
+            q[r]=e;
+        }
+        else
+        {
+            r=r+1;
+            printf("enter the element u want to be added : ");
+            scanf("%d", &e);
+            q[r]=e;
+        }
+    }
+}
+void dequeue(int q[],int mq)
+{
+    int x;
+    if (f==-1 || f>r)
+    printf("undeflow\n");
+    else
+    {
+        x=q[f];
+        if(f==r)
+        {
+            printf("element deleted is %d\n",q[f]);
+            f=-1;
+            r=-1;
+        }
+        else
+        {
+        printf("element deleted is %d\n",q[f]);
+        f=f+1;
+        }
+    }
+}
+void show (int q[],int n)
+{
+    if (f==-1)
+    printf("Empty Queue \n");
+    else
+    {
+        printf("Queue: \n");
+        for (int i = f; i <= r; i++)
+        printf("%d ", q[i]);
+        printf("\n");
+    }
+}
+int main ()
+{
+    int n;
+    printf("enter the size of the queue : ");
+    scanf("%d", &n);
+    int q[n];
+    int choice;
+    int mq=n;
+    while (1)
+    {
+        printf("1.Enqueue Operation\n");
+        printf("2.Dequeue Operation\n");
+        printf("3.Display the Queue\n");
+        printf("4.Exit\n");
+        printf("Enter your choice of operations : ");
+        scanf("%d", &choice);
+        switch(choice)
+        {
+            case 1:
+            enqueue(q,n,mq);
+            break;
+            case 2:
+            dequeue(q,mq);
+            break;
+            case 3:
+            show(q,n);
+            break;
+            case 4:
+            exit(0);
+            break;
+            case 5:
+            printf("%d %d \n", f,r);
+            break;
+        }
+    }
+}
